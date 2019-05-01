@@ -4,25 +4,28 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="CollectionViewChallenge.Views.CollectionViewChallengePage">
+             x:Class="CollectionViewChallenge.Views.CollectionViewChallengePage" x:Name="mainPage">
     <ContentPage.Content>
         <StackLayout>
             <!-- Use your own layout and functionality here! -->
-            <CollectionView>
-                <CollectionView.ItemsSource>
-                    <x:Array Type="{x:Type x:String}">
-                        <x:String>This is a CollectionView!</x:String>
-                        <x:String>Your feedback on the experience of converting a ListView to a CollectionView is incredibly appreciated.</x:String>
-                        <x:String>Here are three general questions:</x:String>
-                        <x:String>1. How was the experience of converting your existing ListView to a CollectionView?</x:String>
-                        <x:String>2. How is the performance compared to the ListView?</x:String>
-                        <x:String>3. Is there a specific piece of functionality that you'd like to see?</x:String>
-                    </x:Array>
-                </CollectionView.ItemsSource>
+            <CollectionView ItemsSource="{Binding Path=MerchantsCategory}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <StackLayout Padding="5">
-                            <Label Text="{Binding .}" d:Text="Design Time Data" FontSize="10"/>
+                        <StackLayout HeightRequest="70" Margin="20">
+                            <Label Text="{Binding Name}" Margin="5"/>
+                            <CollectionView ItemsSource="{Binding Path=Merchants}" ItemsLayout="{x:Static  ListItemsLayout.HorizontalList}" HeightRequest="70" Margin="5" SelectedItem="{Binding Source={x:Reference mainPage}, Path=SelectedItem, Mode=OneWay}">
+                                <CollectionView.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackLayout Orientation="Horizontal" WidthRequest="150">
+                                            <Image Source="icon.png" WidthRequest="50" HeightRequest="50" />
+                                            <StackLayout Margin="5">
+                                                <Label Text="{Binding Name}" VerticalTextAlignment="Center" Margin="0,5,0,0"/>
+                                                <Label Text="{Binding Name}" VerticalTextAlignment="Center"  />
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </DataTemplate>
+                                </CollectionView.ItemTemplate>
+                            </CollectionView>
                         </StackLayout>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
